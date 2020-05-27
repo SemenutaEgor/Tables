@@ -10,17 +10,15 @@ using namespace std;
 typedef string TKey;
 typedef string TValue;
 
-class TTabRecord
-{
+class TTabRecord {
 protected:
 	TKey Key;    // ключ
 	TValue pValue; // значение
 
 	virtual void Print(ostream &os) { os << Key << " " << pValue; }
 public:
-	TTabRecord() {}
-	TTabRecord(TKey k) { Key = k; }
-	TTabRecord(TKey k = "", TValue pVal = NULL) { Key = k; pValue = pVal; }
+	//TTabRecord(TKey k) { Key = k; }
+	TTabRecord(TKey k = "", TValue pVal = "") { Key = k; pValue = pVal; }
 	void SetKey(TKey k) { Key = k; }
 	TKey GetKey(void) { return Key; }
 	void SetValuePtr(TValue p) { pValue = p; }
