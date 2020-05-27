@@ -25,8 +25,8 @@ public:
 	//creating an ordered table by the table being viewed
 	TSortTable(const TScanTable &tab) { *this = tab; }
 	TSortTable& operator=(const TScanTable &tab);
-	TSortMethod GetSortMethod(void) { return SortMethod; }
-	void SetSortMethod(TSortMethod sm) { SortMethod = sm; }
+	/*TSortMethod GetSortMethod(void) { return SortMethod; }
+	void SetSortMethod(TSortMethod sm) { SortMethod = sm; }*/
 
 	//basic methods
 	virtual bool FindRecord(TKey k);                

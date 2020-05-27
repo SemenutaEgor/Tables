@@ -3,6 +3,7 @@
 
 #include "scantable.h"
 #include "sorttable.h"
+#include "treetable.h"
 #include <random>
 #include <string>
 
@@ -28,6 +29,9 @@ void TableGenerator(TTabMode mode) {
 		break;
 	case SORT_TABLE:
 		pTab = new TSortTable(MemSize);
+		break;
+	case TREE_TABLE:
+		pTab = new TTreeTable();
 		break;
 	}
 	pKeys = new int[MemSize];
@@ -77,8 +81,12 @@ void TableProcessor(TTabMode mode) {
 		if (com == 3) {
 			pTab->DelRecord(key);
 		}
-		if (com == 4) {
+		if (com == 4)
+		{
+			if (mode != TREE_TABLE)
 				cout << *pTab; // Table printing
+			else
+				((TTreeTable*)pTab)->Show();
 		}
 	}
 }
