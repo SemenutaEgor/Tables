@@ -2,6 +2,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "scantable.h"
+#include "sorttable.h"
 #include <random>
 #include <string>
 
@@ -25,6 +26,9 @@ void TableGenerator(TTabMode mode) {
 	case SCAN_TABLE:
 		pTab = new TScanTable(MemSize);
 		break;
+	case SORT_TABLE:
+		pTab = new TSortTable(MemSize);
+		break;
 	}
 	pKeys = new int[MemSize];
 	pVals = new string[MemSize];
@@ -43,6 +47,7 @@ void TableGenerator(TTabMode mode) {
 void TableProcessor(TTabMode mode) {
 	int com;
 	int key;
+	string rec;
 	while (1) {
 		cout << "0-Exit, 1-Find, 2-Insert, 3-Delete, 4-Print - ";
 		cin >> com;
@@ -51,6 +56,8 @@ void TableProcessor(TTabMode mode) {
 		if (com != 4) {
 			cout << "Input the key of record - ";
 			cin >> key;
+			cout << "Input the record - ";
+			cin >> rec;
 		}
 		if (com == 1) {
 			cout << " Find " << pTab->FindRecord(key) << endl;
@@ -61,7 +68,8 @@ void TableProcessor(TTabMode mode) {
 				cout << "MemBuffer is full" << endl;
 			else {
 				pKeys[DataCount] = key;
-				pVals[DataCount] = "rec" + to_string(key);
+				pVals[DataCount] = rec;
+				//pVals[DataCount] = "rec" + to_string(key);
 				pTab->InsRecord(key, pVals[DataCount]);
 				DataCount++;
 			}
@@ -79,7 +87,7 @@ int main() {
 	int TableType;
 
 	cout << "Test for the table" << endl;
-	cout << "1-Scan, 2-Sort, 3-Tree, 4-Hash";
+	cout << "1-Scan, 2-Sort, 3-Tree, 4-Hash: ";
 	cin >> TableType;
 	//cout << *pTab;
 	TableGenerator((TTabMode)TableType);
