@@ -7,29 +7,28 @@
 
 using namespace std;
 
-typedef string TKey;
+typedef int TKey;
 typedef string TValue;
 
 class TTabRecord {
-protected:
-	TKey Key;    // ключ
-	TValue pValue; // значение
 
+protected:
+	TKey Key;    
+	TValue pValue; 
 	virtual void Print(ostream &os) { os << Key << " " << pValue; }
+
 public:
-	//TTabRecord(TKey k) { Key = k; }
-	TTabRecord(TKey k = "", TValue pVal = "") { Key = k; pValue = pVal; }
+	TTabRecord(TKey k = 0, TValue pVal = "") { Key = k; pValue = pVal; }
 	void SetKey(TKey k) { Key = k; }
 	TKey GetKey(void) { return Key; }
-	void SetValuePtr(TValue p) { pValue = p; }
-	TValue GetValuePtr(void) { return pValue; }
-	virtual TValue* GetCopy(); // изготовить копию
-	TTabRecord& operator=(TTabRecord &tr)
-	{
+	void SetValue(TValue p) { pValue = p; }
+	TValue GetValue(void) { return pValue; }
+	TTabRecord& operator=(TTabRecord &tr) {
 		Key = tr.Key;
 		pValue = tr.pValue;
 		return *this;
 	}
+
 	virtual int operator==(const TTabRecord &tr) { return Key == tr.Key; }
 	virtual int operator< (const TTabRecord &tr) { return Key > tr.Key; }
 	virtual int operator> (const TTabRecord &tr) { return Key < tr.Key; }
@@ -39,5 +38,4 @@ public:
 
 };
 
-typedef TTabRecord* PTTabRecord;
 #endif

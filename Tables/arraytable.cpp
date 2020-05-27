@@ -1,11 +1,32 @@
 #include "arraytable.h"
 
-TKey TArrayTable::GetKey(TDataPos mode) const { // значение
+TKey TArrayTable::GetKey(TDataPos mode) const { 
 	int pos = -1;
-	if (!IsEmpty())
-	{
-		switch (mode)
-		{
+	if (!IsEmpty()) {
+		switch (mode) {
+		case FIRST_POS:
+			pos = 0;
+			break;
+		case LAST_POS:
+			pos = DataCount - 1;
+			break;
+		default:
+			pos = CurrPos;
+			break;
+		}
+	}
+	if (pos == -1) {
+		return 0;
+	}
+	else {
+		return pRecs[pos].Key;
+	}
+} 
+
+TValue TArrayTable::GetValue(TDataPos mode) const {
+	int pos = -1;
+	if (!IsEmpty()) {
+		switch (mode) {
 		case FIRST_POS:
 			pos = 0;
 			break;
@@ -21,55 +42,26 @@ TKey TArrayTable::GetKey(TDataPos mode) const { // значение
 		return "";
 	}
 	else {
-		return pRecs[pos].Key;
+		return pRecs[pos].pValue;
 	}
 } 
 
-TValue TArrayTable::GetValue(TDataPos mode) const { //значение
-	int pos = -1;
-	if (!IsEmpty())
-	{
-		switch (mode)
-		{
-		case FIRST_POS:
-			pos = 0;
-			break;
-		case LAST_POS:
-			pos = DataCount - 1;
-			break;
-		default:
-			pos = CurrPos;
-			break;
-		}
-	}
-	if (pos == -1) {
-		return "";
-	}
-	else {
-		return pRecs[pos].Key;
-	}
-} 
-
-int TArrayTable::Reset(void) // установить на первую запись
-{
+int TArrayTable::Reset(void) {
 	CurrPos = 0;
 	return IsTabEnded();
 } 
 
-int TArrayTable::IsTabEnded(void) const // таблица завершена?
-{
+int TArrayTable::IsTabEnded(void) const {
 	return CurrPos >= DataCount;
 } 
 
-int TArrayTable::GoNext(void) // переход к следующей записи
-{
+int TArrayTable::GoNext(void) {
 	if (!IsTabEnded())
 		CurrPos++;
 	return IsTabEnded();
 } 
 
-int TArrayTable::SetCurrentPos(int pos) // установить текущую запись
-{
+int TArrayTable::SetCurrentPos(int pos) {
 	CurrPos = ((pos > -1) && (pos < DataCount)) ? pos : 0;
 	return IsTabEnded();
 } 

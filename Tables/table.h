@@ -16,38 +16,41 @@
 
 using namespace std;
 
-class TTable
-{
+class TTable {
+
 protected:
-	int DataCount;  // количество записей в таблице
-	int Efficiency; // показатель эффективности выполнения операции
+	int DataCount;  //the number of entries in the table
+	int Efficiency; //effectiveness indicator
+
 public:
 	TTable() { DataCount = 0; Efficiency = 0; }
 	virtual ~TTable() { };
-	// информационные методы
-	int GetDataCount()   const { return DataCount; } // количество записей
-	int GetEfficiency()  const { return   Efficiency; } // эффективность
-	void ClearEfficiency() { Efficiency = 0; } //обнулить счётчик операций
-	int IsEmpty()        const { return DataCount == 0; } // пуста?
-	virtual int IsFull() const = 0;                       // заполнена?
-	// основные методы
-	virtual bool FindRecord(TKey k) = 0;         // найти запись
-	virtual int InsRecord(TKey k, TValue pVal) = 0; // вставить
-	virtual int DelRecord(TKey k) = 0;         // удалить запись
-	// навигация
-	virtual int Reset(void) = 0; // установить на первую запись
-	virtual int IsTabEnded(void) const = 0; // таблица завершена?
-	virtual int GoNext(void) = 0; // переход к следующей записи
 
-	// доступ
+	//information methods
+	int GetDataCount() const { return DataCount; } 
+	int GetEfficiency() const { return   Efficiency; } 
+	void ClearEfficiency() { Efficiency = 0; } 
+	int IsEmpty() const { return DataCount == 0; } 
+	virtual int IsFull() const = 0;                       
+
+	//basic methods
+	virtual bool FindRecord(TKey k) = 0;        
+	virtual int InsRecord(TKey k, TValue pVal) = 0;
+	virtual int DelRecord(TKey k) = 0;        
+
+	//navigation
+	virtual int Reset(void) = 0; 
+	virtual int IsTabEnded(void) const = 0; 
+	virtual int GoNext(void) = 0; 
+
+	//access
 	virtual TKey GetKey(void) const = 0;
 	virtual TValue GetValue(void) const = 0;
-	// Печать таблицы
-	friend ostream& operator<<(ostream &os, TTable &tab)
-	{
+
+	//table printing
+	friend ostream& operator<<(ostream &os, TTable &tab) {
 		cout << "Table printing" << endl;
-		for (tab.Reset(); !tab.IsTabEnded(); tab.GoNext())
-		{
+		for (tab.Reset(); !tab.IsTabEnded(); tab.GoNext()) {
 			os << " Key: " << tab.GetKey() << " Val: " << tab.GetValue() << endl;
 		}
 		return os;

@@ -9,10 +9,12 @@
 enum TDataPos { FIRST_POS, CURRENT_POS, LAST_POS };
 
 class TArrayTable : public TTable {
+
 protected:
-	TTabRecord *pRecs; // память для записей таблицы
-	int TabSize;        // макс. возм. к-во записей
-	int CurrPos;        // номер текущего записи (нумерация от 0)
+	TTabRecord *pRecs; // memory for table entries
+	int TabSize; //table size
+	int CurrPos; //current record number (numbering from 0)
+
 public:
 	TArrayTable() {};
 	TArrayTable(int Size = TabMaxSize) {
@@ -23,29 +25,32 @@ public:
 	virtual ~TArrayTable() {
 		delete[] pRecs;
 	}
-	// информационные методы
+
+	//information methods
 	virtual int IsFull() const {
 		return DataCount >= TabSize;
 	}
+
 	int GetTabSize() const {
 		return TabSize;
 	}
-	// доступ
+
+	//access
 	virtual TKey GetKey(void) const {
 		return GetKey(CURRENT_POS);
 	}
 	virtual TValue GetValue(void) const {
 		return GetValue(CURRENT_POS);
 	}
-	virtual TKey GetKey(TDataPos mode) const; // ключ
-	virtual TValue GetValue(TDataPos mode) const; // указ-ль на значение
-	// навигация
-	virtual int Reset(void);       // установить на первую запись
-	virtual int IsTabEnded(void) const; // таблица завершена?
-	virtual int GoNext(void);       // переход к следующей записи
-	// (=1 после применения GoNext для последней записи таблицы)
-	virtual int SetCurrentPos(int pos); // установить текущую запись
-	int GetCurrentPos(void) const {      // получить номер текущей записи
+	virtual TKey GetKey(TDataPos mode) const; 
+	virtual TValue GetValue(TDataPos mode) const; 
+
+	//navigation
+	virtual int Reset(void);       
+	virtual int IsTabEnded(void) const; 
+	virtual int GoNext(void);     
+	virtual int SetCurrentPos(int pos); 
+	int GetCurrentPos(void) const {      
 		return CurrPos;
 	}
 

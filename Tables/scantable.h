@@ -4,14 +4,15 @@
 
 #include "arraytable.h"
 
-class TScanTable : public TArrayTable
-{
+class TScanTable : public TArrayTable {
+
 public:
+
 	TScanTable(int Size = TabMaxSize) : TArrayTable(Size) { };
-	// основные методы
-	virtual bool FindRecord(TKey k);                  // найти запись
-	virtual int InsRecord(TKey k, TValue pVal); // вставить запись
-	virtual int DelRecord(TKey k); // удалить запись
+
+	virtual bool FindRecord(TKey k);  
+	virtual int InsRecord(TKey k, TValue pVal); 
+	virtual int DelRecord(TKey k); 
 };
 
 #endif

@@ -1,28 +1,23 @@
 #include "scantable.h"
 
-bool TScanTable::FindRecord(TKey k) // найти запись
-{
+bool TScanTable::FindRecord(TKey k) {
 	int i;
 	for (i = 0; i < DataCount; i++)
 		if (pRecs[i].Key == k)
 			break;
 	Efficiency = i + 1;
-	if (i < DataCount)
-	{
+	if (i < DataCount) {
 		CurrPos = i;
 		return true;
 	}
 	return false;
 }
 
-int TScanTable::InsRecord(TKey k, TValue pVal) // вставить запись
-{
+int TScanTable::InsRecord(TKey k, TValue pVal) {
 	if (IsFull()) {
 		return TabFull;
 	}
-	else
-	{
-		//pRecs[DataCount] = new TTabRecord(k, pVal);
+	else {
 		pRecs[DataCount].Key = k;
 		pRecs[DataCount].pValue = pVal;
 		DataCount++;          
@@ -30,17 +25,14 @@ int TScanTable::InsRecord(TKey k, TValue pVal) // вставить запись
 	}
 }
 
-int TScanTable::DelRecord(TKey k) // удалить запись
-{
+int TScanTable::DelRecord(TKey k) {
 	int temp = FindRecord(k);                                
-	if (temp != 0) {
+	if (temp == 0) {
 		return temp;
 	}
-	else
-	{
+	else {
 		pRecs[CurrPos] = pRecs[DataCount - 1];
 		DataCount--;
-		//pRecs[--DataCount] = NULL;
 		return TabOK;
-	}                                                                 
+	}    
 }
