@@ -14,11 +14,13 @@ typedef string TValue;
 class TTabRecord {
 
 protected:
-	TKey Key;
-	TValue pValue;
+	//TKey Key;
+	//TValue pValue;
 	virtual void Print(ostream &os) { os << Key << " " << pValue; }
 
 public:
+	TKey Key;
+	TValue pValue;
 	//TTabRecord() {}
 	//TTabRecord(TKey k) { Key = k; }
 	TTabRecord(TKey k = 0, TValue pVal = "") { Key = k; pValue = pVal; }
@@ -43,6 +45,8 @@ public:
 	friend class TSortTable;
 	friend class TTreeNode;
 	friend class TTreeTable;
+	friend class TArrayHash;
+	friend class THashTable;
 
 };
 
