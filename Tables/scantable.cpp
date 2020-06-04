@@ -18,10 +18,15 @@ int TScanTable::InsRecord(TKey k, TValue pVal) {
 		cerr << " TabFull " << endl;
 		return TabFull;
 	}
+	else if (FindRecord(k) == true) {
+		cerr << " TabRecDbl " << endl;
+		return TabRecDbl;
+	}
 	else {
 		pRecs[DataCount].Key = k;
 		pRecs[DataCount].pValue = pVal;
-		DataCount++;          
+		DataCount++;      
+		Efficiency++;
 		return TabOK;
 	}
 }
@@ -29,6 +34,7 @@ int TScanTable::InsRecord(TKey k, TValue pVal) {
 int TScanTable::DelRecord(TKey k) {
 	int temp = FindRecord(k);                                
 	if (temp == 0) {
+		cerr << "TabNoRec" << endl;
 		return temp;
 	}
 	else {

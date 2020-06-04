@@ -1,6 +1,6 @@
 #include "treetable.h"
 
-int TTreeTable::IsFull() const // заполнена?
+int TTreeTable::IsFull() const 
 {
 	TTreeNode* pNode = new TTreeNode();
 	int temp = pNode == NULL;
@@ -8,7 +8,7 @@ int TTreeTable::IsFull() const // заполнена?
 	return temp;
 }
 
-bool TTreeTable::FindRecord(TKey k) // найти запись
+bool TTreeTable::FindRecord(TKey k) 
 {
 	pPrev = NULL;
 	pCurrent = pRoot;
@@ -28,7 +28,7 @@ bool TTreeTable::FindRecord(TKey k) // найти запись
 	}
 } 
 
-int TTreeTable::InsRecord(TKey k, TValue pVal) { // вставить запись
+int TTreeTable::InsRecord(TKey k, TValue pVal) { 
 	if (IsFull()) {
 		cerr << " TabFull " << endl;
 		return TabFull;
@@ -55,14 +55,14 @@ int TTreeTable::InsRecord(TKey k, TValue pVal) { // вставить запись
 	}
 } 
 
-int TTreeTable::DelRecord(TKey k) { // удалить запись
+int TTreeTable::DelRecord(TKey k) { 
 	if (FindRecord(k) == false) {
 		cerr << " TabNoRec " << endl;
 		return TabNoRec;
 	}
 	else {
 		TTreeNode* pNode = pCurrent;
-		if (pNode->pRight == NULL) { //один потомок слева
+		if (pNode->pRight == NULL) { 
 			if (pPrev == NULL) {
 				pRoot = pNode->pLeft;
 			}
@@ -76,7 +76,7 @@ int TTreeTable::DelRecord(TKey k) { // удалить запись
 			}
 			Efficiency++;
 		}
-		else if (pNode->pLeft == NULL) { //один потомок справа
+		else if (pNode->pLeft == NULL) { 
 			if (pPrev == NULL) {
 				pRoot = pNode->pRight;
 			}
@@ -116,25 +116,21 @@ int TTreeTable::DelRecord(TKey k) { // удалить запись
 	}
 }
 
-// навигация
-TKey TTreeTable::GetKey(void) const // значение ключа текущей записи
-{
+
+TKey TTreeTable::GetKey(void) const {
 	return (pCurrent == NULL) ? 0 : pCurrent->Key;
 } 
 
-TValue TTreeTable::GetValue(void) const // указатель на значение
-{
+TValue TTreeTable::GetValue(void) const {
 	return (pCurrent == NULL) ? NULL : pCurrent->pValue;
 } 
 
-int TTreeTable::Reset(void) // установить на первую запись
-{
+int TTreeTable::Reset(void) {
 	TTreeNode* pNode = pCurrent = pRoot;
 	while (!St.empty())
-		St.pop(); // очистка стека
+		St.pop(); 
 	CurrPos = 0;
-	while (pNode != NULL) // переход к крайней левой вершине
-	{
+	while (pNode != NULL) {
 		St.push(pNode);
 		pCurrent = pNode;
 		pNode = pNode->GetLeft();
@@ -142,24 +138,20 @@ int TTreeTable::Reset(void) // установить на первую запись
 	return IsTabEnded();
 } 
 
-int TTreeTable::IsTabEnded(void) const // таблица завершена?
-{
+int TTreeTable::IsTabEnded(void) const {
 	return CurrPos >= DataCount;
 } 
 
-int TTreeTable::GoNext(void) // переход к следующей записи
-{
+int TTreeTable::GoNext(void) {
 	if (!IsTabEnded() && (pCurrent != NULL))                          
 	{
-		TTreeNode* pNode = pCurrent = pCurrent->GetRight(); // переход вправо
+		TTreeNode* pNode = pCurrent = pCurrent->GetRight(); 
 		St.pop();
-		while (pNode != NULL) // переход к крайней левой вершине
-		{
+		while (pNode != NULL) {
 			St.push(pNode);
 			pCurrent = pNode;
 			pNode = pNode->GetLeft();
 		}
-		// если правого потомка нет, то извлечение из стека
 		if ((pCurrent == NULL) && !St.empty())
 			pCurrent = St.top();
 		CurrPos++;
@@ -167,25 +159,21 @@ int TTreeTable::GoNext(void) // переход к следующей записи
 	return IsTabEnded();                                          
 } 
 
-// методы печати
-ostream& operator<<(ostream &os, TTreeTable &tab)
-{
+ostream& operator<<(ostream &os, TTreeTable &tab) {
 	cout << "Table printing" << endl;
 	tab.PrintTreeTable(os, tab.pRoot);
 	return os;
 } 
 
-void TTreeTable::Draw(void) // печать дерева (рисунок слева направо)
-{
+void TTreeTable::Draw(void) {
 	cout << "Table printing" << endl;
 	DrawTreeTable(pRoot, 0);
+	Efficiency++;
 }
 
 // запись ключей в массив в порядке возрастания с запоминаем номеров ярусов
-/*void TTreeTable::PutValues(TTreeNode* pNode, int Level)
-{
-	if ((pNode != NULL) && (pos < 20))
-	{
+/*void TTreeTable::PutValues(TTreeNode* pNode, int Level) {
+	if ((pNode != NULL) && (pos < 20)) {
 		PutValues(pNode->pLeft, Level + 1);
 		tk[pos] = pNode->Key;
 		tl[pos] = Level;
@@ -193,8 +181,7 @@ void TTreeTable::Draw(void) // печать дерева (рисунок слева направо)
 		PutValues(pNode->pRight, Level + 1);
 	}
 } 
-void TTreeTable::Show(void) // печать дерева (рисунок сверху вниз)
-{
+void TTreeTable::Show(void)  { // печать дерева (рисунок сверху вниз)
 	int maxl = 0, i, j, k, pn;
 	pos = 0;
 	PutValues(pRoot, 0);
@@ -203,13 +190,10 @@ void TTreeTable::Show(void) // печать дерева (рисунок сверху вниз)
 			maxl = tl[i];
 	//  cout << "Печать таблицы" << endl;
 	cout << "Table visualization" << endl;
-	for (i = 0; i < maxl + 1; i++) // номер яруса
-	{
+	for (i = 0; i < maxl + 1; i++) {
 		pn = 0;
-		for (j = 0; j < pos; j++) // печать ключей яруса i
-		{
-			if (tl[j] == i)
-			{
+		for (j = 0; j < pos; j++) {
+			if (tl[j] == i) {
 				for (k = 0; k < 2 * (j - pn); k++)
 					cout << " ";
 				cout << tk[j];
@@ -220,11 +204,8 @@ void TTreeTable::Show(void) // печать дерева (рисунок сверху вниз)
 	}
 }*/
 
-// служебные методы
-void TTreeTable::PrintTreeTable(ostream &os, TTreeNode* pNode)
-{
-	if (pNode != NULL) // печать дерева с вершиной pNode
-	{
+void TTreeTable::PrintTreeTable(ostream &os, TTreeNode* pNode) {
+	if (pNode != NULL) {
 		PrintTreeTable(os, pNode->pLeft);
 		pNode->Print(os);
 		os << endl;
@@ -232,23 +213,22 @@ void TTreeTable::PrintTreeTable(ostream &os, TTreeNode* pNode)
 	}
 }
 
-void TTreeTable::DrawTreeTable(TTreeNode* pNode, int Level)
-{
-	if (pNode != NULL) // печать таблицы с соблюдением ярусов
-	{
+void TTreeTable::DrawTreeTable(TTreeNode* pNode, int Level) {
+	if (pNode != NULL) {
 		DrawTreeTable(pNode->pRight, Level + 1);
-		for (int i = 0; i < 2 * Level; i++)
+		for (int i = 0; i < 2 * Level; i++) {
 			cout << " ";
+			Efficiency++;
+		}
+		Efficiency++;
 		pNode->Print(cout);
 		cout << endl;
 		DrawTreeTable(pNode->pLeft, Level + 1);
 	}
 } 
 
-void TTreeTable::DeleteTreeTable(TTreeNode* pNode)
-{
-	if (pNode != NULL) // удаление дерева с вершиной pNode
-	{
+void TTreeTable::DeleteTreeTable(TTreeNode* pNode) {
+	if (pNode != NULL) {
 		DeleteTreeTable(pNode->pLeft);
 		DeleteTreeTable(pNode->pRight);
 		delete pNode;

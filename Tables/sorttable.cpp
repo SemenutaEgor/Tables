@@ -53,8 +53,13 @@ int TSortTable::InsRecord(TKey k, TValue pVal) {
 		cerr << " TabFull " << endl;
 		return TabFull;
 	}
+	else if (FindRecord(k) == true) {
+		cerr << " TabRecDbl " << endl;
+		return TabRecDbl;
+	}
 	else {
 		int temp = FindRecord(k);
+		Efficiency++;
 			for (int i = DataCount; i > CurrPos; i--)
 				pRecs[i] = pRecs[i - 1]; 
 			pRecs[CurrPos].Key = k;
@@ -64,11 +69,17 @@ int TSortTable::InsRecord(TKey k, TValue pVal) {
 	}
 } 
 int TSortTable::DelRecord(TKey k) {
-	bool temp = FindRecord(k);                                  
+	bool temp = FindRecord(k);       
+	if (temp == 0) {
+		cerr << "TabNoRec" << endl;
+		return temp;
+	}
+	else {
 		for (int i = CurrPos; i < DataCount - 1; i++)
 			pRecs[i] = pRecs[i + 1];
 		DataCount--;
-		return TabOK;                                                              
+		return TabOK;
+	}
 } 
 
 void TSortTable::SortData() {

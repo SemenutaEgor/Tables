@@ -18,12 +18,12 @@ int DataCount = 0, MemSize;
 
 void TableGenerator(TTabMode mode) {
 	int  MaxKeyValue;
-	char Line[100];
+	//char Line[100];
 	cout << "Input the record's number - ";
 	cin >> DataCount;
 	cout << "Input the Maximum Key Value - ";
 	cin >> MaxKeyValue;
-	MemSize = DataCount + 10;
+	MemSize = DataCount+1;
 	switch (mode) {
 	case SCAN_TABLE:
 		pTab = new TScanTable(MemSize);
@@ -68,12 +68,14 @@ void TableProcessor(TTabMode mode) {
 			cin >> rec;
 		}*/
 		if (com == 1) {
+			pTab->NullEfficiency();
 			cout << "Input the key of record - ";
 			cin >> key;
 			cout << " Find " << pTab->FindRecord(key) << endl;
 			cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
 		}
 		if (com == 2) {
+			pTab->NullEfficiency();
 			cout << "Input the key of record - ";
 			cin >> key;
 			cout << "Input the record - ";
@@ -89,12 +91,14 @@ void TableProcessor(TTabMode mode) {
 			cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
 		}
 		if (com == 3) {
+			pTab->NullEfficiency();
 			cout << "Input the key of record - ";
 			cin >> key;
 			pTab->DelRecord(key);
 			cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
 		}
 		if (com == 4) {
+			pTab->NullEfficiency();
 			//cout << *pTab;
 			if (mode != TREE_TABLE)
 				cout << *pTab; // Table printing

@@ -30,6 +30,7 @@ public:
 	//information methods
 	int GetDataCount() const { return DataCount; }
 	int GetEfficiency() const { return   Efficiency; }
+	void NullEfficiency() { Efficiency = 0; }
 	void ClearEfficiency() { Efficiency = 0; }
 	int IsEmpty() const { return DataCount == 0; }
 	virtual int IsFull() const = 0;
@@ -53,6 +54,7 @@ public:
 		cout << "Table printing" << endl;
 		for (tab.Reset(); !tab.IsTabEnded(); tab.GoNext()) {
 			os << " Key: " << tab.GetKey() << " Val: " << tab.GetValue() << endl;
+			Efficiency++;
 		}
 		return os;
 	}
