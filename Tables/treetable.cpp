@@ -26,27 +26,6 @@ bool TTreeTable::FindRecord(TKey k) // найти запись
 		pCurrent = pPrev;
 		return false;
 	}
-	/*TTreeNode* pNode = pRoot;
-	ppRef = pRoot; // адрес указателя на вершину-результата
-	Efficiency = 0;
-	while (pNode != NULL)
-	{
-		Efficiency++;
-		if (pNode->Key == k)
-			break;
-		if (pNode->Key < k)
-			ppRef = pNode->pRight;
-		else
-			ppRef = pNode->pLeft;
-		pNode = ppRef;
-	}
-	if (pNode == NULL) {
-		return TabNoRec;
-	}
-	else {
-		//return TabOK;
-	}
-	return (pNode == NULL) ? false : true;*/
 } 
 
 int TTreeTable::InsRecord(TKey k, TValue pVal) { // вставить запись
@@ -74,33 +53,64 @@ int TTreeTable::InsRecord(TKey k, TValue pVal) { // вставить запись
 	}
 } 
 
-int TTreeTable::DelRecord(TKey k) // удалить запись
-{
-	if (FindRecord(k) == NULL) {
+int TTreeTable::DelRecord(TKey k) { // удалить запись
+	if (FindRecord(k) == false) {
 		return TabNoRec;
 	}
-	else
-	{
-		TTreeNode* pNode = ppRef;
-		if (pNode->pRight == NULL)
-			ppRef = pNode->pLeft; // один потомок слева
-		else if (pNode->pLeft == NULL)
-			ppRef = pNode->pRight; // один потомок справа
-		else // два потомка - поиск крайнего справа у левого поддерева
-		{
-			TTreeNode* pN = pNode->pLeft, *ppR = pNode->pLeft;
-			while (pN->pRight != NULL)
-			{
-				ppR = pN->pRight;
-				pN = ppR;
-			} // вместо удаления pNode удается pN
-			pNode->pValue = pN->pValue;   // значение в pNode
+	else {
+		TTreeNode* pNode = pCurrent;
+		if (pNode->pRight == NULL) { //один потомок слева
+			if (pPrev == NULL) {
+				pRoot = pNode->pLeft;
+			}
+			else {
+				if (pPrev->pRight == pNode) {
+					pPrev->pRight = pNode->pLeft;
+				}
+				else {
+					pPrev->pLeft = pNode->pLeft;
+				}
+			}
+			Efficiency++;
+		}
+		else if (pNode->pLeft == NULL) { //один потомок справа
+			if (pPrev == NULL) {
+				pRoot = pNode->pRight;
+			}
+			else {
+				if (pPrev->pRight == pNode) {
+					pPrev->pRight = pNode->pRight;
+				}
+				else {
+					pPrev->pLeft = pNode->pRight;
+				}
+			}
+			Efficiency++;
+		}
+		else {
+			TTreeNode *pN = pNode->pLeft;
+			pPrev = pNode;
+			while (pN->pRight != NULL) {
+				pPrev = pN;
+				pN = pN->pRight;
+				Efficiency++;
+			}
+
+			pNode->pValue = pN->pValue;
 			pNode->Key = pN->Key;
+			if (pPrev->pRight == pN) {
+				pPrev->pRight = pN->pLeft;
+			}
+			else {
+				pPrev->pLeft = pN->pLeft;
+			}
 			pNode = pN;
-			ppR = pN->pLeft; // обход удаляемого pN
+			Efficiency++;
 		}
 		delete pNode;
-	}                                                             
+		DataCount--;
+		return TabOK;
+	}
 }
 
 // навигация
