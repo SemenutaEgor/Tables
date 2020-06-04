@@ -1,4 +1,5 @@
 //table.h
+
 #ifndef _table_h
 #define _table_h
 
@@ -27,21 +28,21 @@ public:
 	virtual ~TTable() { };
 
 	//information methods
-	int GetDataCount() const { return DataCount; } 
-	int GetEfficiency() const { return   Efficiency; } 
-	void ClearEfficiency() { Efficiency = 0; } 
-	int IsEmpty() const { return DataCount == 0; } 
-	virtual int IsFull() const = 0;                       
+	int GetDataCount() const { return DataCount; }
+	int GetEfficiency() const { return   Efficiency; }
+	void ClearEfficiency() { Efficiency = 0; }
+	int IsEmpty() const { return DataCount == 0; }
+	virtual int IsFull() const = 0;
 
 	//basic methods
-	virtual bool FindRecord(TKey k) = 0;        
+	virtual bool FindRecord(TKey k) = 0;
 	virtual int InsRecord(TKey k, TValue pVal) = 0;
-	virtual int DelRecord(TKey k) = 0;        
+	virtual int DelRecord(TKey k) = 0;
 
 	//navigation
-	virtual int Reset(void) = 0; 
-	virtual int IsTabEnded(void) const = 0; 
-	virtual int GoNext(void) = 0; 
+	virtual int Reset(void) = 0;
+	virtual int IsTabEnded(void) const = 0;
+	virtual int GoNext(void) = 0;
 
 	//access
 	virtual TKey GetKey(void) const = 0;

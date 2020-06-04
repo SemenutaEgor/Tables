@@ -50,6 +50,7 @@ bool TSortTable::FindRecord(TKey k) {
 
 int TSortTable::InsRecord(TKey k, TValue pVal) {
 	if (IsFull()) {
+		cerr << " TabFull " << endl;
 		return TabFull;
 	}
 	else {

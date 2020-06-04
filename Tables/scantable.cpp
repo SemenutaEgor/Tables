@@ -15,6 +15,7 @@ bool TScanTable::FindRecord(TKey k) {
 
 int TScanTable::InsRecord(TKey k, TValue pVal) {
 	if (IsFull()) {
+		cerr << " TabFull " << endl;
 		return TabFull;
 	}
 	else {

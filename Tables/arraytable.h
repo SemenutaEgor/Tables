@@ -1,4 +1,5 @@
 //arraytable.h
+
 #ifndef _arraytable_h
 #define _arraytable_h
 
@@ -43,15 +44,15 @@ public:
 	virtual TValue GetValue(void) const {
 		return GetValue(CURRENT_POS);
 	}
-	virtual TKey GetKey(TDataPos mode) const; 
-	virtual TValue GetValue(TDataPos mode) const; 
+	virtual TKey GetKey(TDataPos mode) const;
+	virtual TValue GetValue(TDataPos mode) const;
 
 	//navigation
-	virtual int Reset(void);       
-	virtual int IsTabEnded(void) const; 
-	virtual int GoNext(void);     
-	virtual int SetCurrentPos(int pos); 
-	int GetCurrentPos(void) const {      
+	virtual int Reset(void);
+	virtual int IsTabEnded(void) const;
+	virtual int GoNext(void);
+	virtual int SetCurrentPos(int pos);
+	int GetCurrentPos(void) const {
 		return CurrPos;
 	}
 

@@ -1,9 +1,10 @@
 //sorttable.h
+
 #ifndef _sorttable_h
 #define _sorttable_h
 #include "scantable.h"
 
-enum TSortMethod { INSERT_SORT=1, MERGE_SORT, QUICK_SORT };
+enum TSortMethod { INSERT_SORT = 1, MERGE_SORT, QUICK_SORT };
 
 class TSortTable : public TScanTable {
 protected:
@@ -29,9 +30,9 @@ public:
 	void SetSortMethod(TSortMethod sm) { SortMethod = sm; }*/
 
 	//basic methods
-	virtual bool FindRecord(TKey k);                
-	virtual int InsRecord(TKey k, TValue pVal); 
-	virtual int DelRecord(TKey k);                  
+	virtual bool FindRecord(TKey k);
+	virtual int InsRecord(TKey k, TValue pVal);
+	virtual int DelRecord(TKey k);
 };
 
 #endif 

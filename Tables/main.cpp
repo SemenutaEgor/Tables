@@ -4,6 +4,7 @@
 #include "scantable.h"
 #include "sorttable.h"
 #include "treetable.h"
+#include "arrayhash.h"
 #include <random>
 #include <string>
 
@@ -33,6 +34,9 @@ void TableGenerator(TTabMode mode) {
 	case TREE_TABLE:
 		pTab = new TTreeTable();
 		break;
+	case HASH_TABLE:
+		pTab = new TArrayHashTable(MemSize);
+		break;
 	}
 	pKeys = new int[MemSize];
 	pVals = new string[MemSize];
@@ -57,37 +61,46 @@ void TableProcessor(TTabMode mode) {
 		cin >> com;
 		if (com == 0)
 			break;
-		if (com != 4) {
+		/*if (com != 4) {
 			cout << "Input the key of record - ";
 			cin >> key;
 			cout << "Input the record - ";
 			cin >> rec;
-		}
+		}*/
 		if (com == 1) {
+			cout << "Input the key of record - ";
+			cin >> key;
 			cout << " Find " << pTab->FindRecord(key) << endl;
 			cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
 		}
 		if (com == 2) {
+			cout << "Input the key of record - ";
+			cin >> key;
+			cout << "Input the record - ";
+			cin >> rec;
 			if (DataCount >= MemSize)
 				cout << "MemBuffer is full" << endl;
 			else {
 				pKeys[DataCount] = key;
 				pVals[DataCount] = rec;
-				//pVals[DataCount] = "rec" + to_string(key);
 				pTab->InsRecord(key, pVals[DataCount]);
 				DataCount++;
 			}
+			cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
 		}
 		if (com == 3) {
+			cout << "Input the key of record - ";
+			cin >> key;
 			pTab->DelRecord(key);
+			cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
 		}
-		if (com == 4)
-		{
+		if (com == 4) {
 			//cout << *pTab;
 			if (mode != TREE_TABLE)
 				cout << *pTab; // Table printing
 			else
 				((TTreeTable*)pTab)->Draw();
+			cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
 		}
 	}
 }

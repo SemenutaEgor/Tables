@@ -1,6 +1,6 @@
 #include "arraytable.h"
 
-TKey TArrayTable::GetKey(TDataPos mode) const { 
+TKey TArrayTable::GetKey(TDataPos mode) const {
 	int pos = -1;
 	if (!IsEmpty()) {
 		switch (mode) {
@@ -21,7 +21,7 @@ TKey TArrayTable::GetKey(TDataPos mode) const {
 	else {
 		return pRecs[pos].Key;
 	}
-} 
+}
 
 TValue TArrayTable::GetValue(TDataPos mode) const {
 	int pos = -1;
@@ -44,24 +44,24 @@ TValue TArrayTable::GetValue(TDataPos mode) const {
 	else {
 		return pRecs[pos].pValue;
 	}
-} 
+}
 
 int TArrayTable::Reset(void) {
 	CurrPos = 0;
 	return IsTabEnded();
-} 
+}
 
 int TArrayTable::IsTabEnded(void) const {
 	return CurrPos >= DataCount;
-} 
+}
 
 int TArrayTable::GoNext(void) {
 	if (!IsTabEnded())
 		CurrPos++;
 	return IsTabEnded();
-} 
+}
 
 int TArrayTable::SetCurrentPos(int pos) {
 	CurrPos = ((pos > -1) && (pos < DataCount)) ? pos : 0;
 	return IsTabEnded();
-} 
+}

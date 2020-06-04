@@ -1,4 +1,5 @@
 //treetable.h
+
 #ifndef _treetable_h
 #define _treetable_h
 #include <stack>
@@ -7,43 +8,48 @@
 
 class TTreeTable : public TTable {
 protected:
-	TTreeNode  *pRoot;    // указатель на корень дерева
-	TTreeNode *ppRef;    // адрес указателя на вершину-результата в FindRecord
-	TTreeNode  *pCurrent; // указатель на текущую вершину
-	TTreeNode *pPrev;
-	int CurrPos;          // номер текущей вершины
-	stack<TTreeNode*> St; // стек для итератора
+	TTreeNode  *pRoot; //pointer to the root of the tree
+	TTreeNode *ppRef; //address of the pointer to the top - result in FindRecord
+	TTreeNode  *pCurrent; //pointer to current vertex
+	TTreeNode *pPrev; //pointer to previous
+	int CurrPos; //current vertex number
+	stack<TTreeNode*> St; //stack for iterator
 
-	void PrintTreeTable(ostream &os, TTreeNode *pNode); // Печать
-	void DrawTreeTable(TTreeNode *pNode, int Level);   // Печать с ярусами
-	void DeleteTreeTable(TTreeNode *pNode);              // Удаление
+	void PrintTreeTable(ostream &os, TTreeNode *pNode);
+	void DrawTreeTable(TTreeNode *pNode, int Level);
+	void DeleteTreeTable(TTreeNode *pNode);
 public:
+
 	TTreeTable() : TTable() {
 		CurrPos = 0; pRoot = pCurrent = NULL; ppRef = NULL;
 	}
 	~TTreeTable() { DeleteTreeTable(pRoot); }
-	// информационные методы
-	virtual int IsFull() const;               // заполнена?
-	// основные методы
-	virtual bool FindRecord(TKey k); // найти запись
-	virtual int InsRecord(TKey k, TValue pVal); // вставить
-	virtual int DelRecord(TKey k); // удалить запись
-	// навигация
-	virtual int Reset(void);       // установить на первую запись
-	virtual int IsTabEnded(void) const; // таблица завершена?
-	virtual int GoNext(void);       // переход к следующей записи
-	// (=1 после применения GoNext для последней записи таблицы)
-	// доступ
-	virtual TKey GetKey(void) const;    // ключ текущей записи
-	virtual TValue GetValue(void) const; // указатель на значение
-	// Печать таблицы
+
+	virtual int IsFull() const;
+
+	//basic methods
+	virtual bool FindRecord(TKey k);
+	virtual int InsRecord(TKey k, TValue pVal);
+	virtual int DelRecord(TKey k);
+
+	//navigation
+	virtual int Reset(void);
+	virtual int IsTabEnded(void) const;
+	virtual int GoNext(void);
+
+	//access
+	virtual TKey GetKey(void) const;
+	virtual TValue GetValue(void) const;
+
+	//Table printing
 	friend ostream& operator<<(ostream &os, TTreeTable &tab);
-	void Draw(void); // печать дерева (рисунок слева направо)
-	void Show(void); // печать дерева (рисунок сверху вниз)
-protected:
+	void Draw(void); //tree print(picture from left to right)
+	//void Show(void); //tree print (top to bottom drawing)
+
+/*protected:
 	string tk[20];
 	int tl[20], pos;
-	void PutValues(TTreeNode *pNode, int Level); // служебный метод для Show
+	void PutValues(TTreeNode *pNode, int Level); // служебный метод для Show*/
 };
 
 #endif 

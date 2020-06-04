@@ -30,9 +30,11 @@ bool TTreeTable::FindRecord(TKey k) // найти запись
 
 int TTreeTable::InsRecord(TKey k, TValue pVal) { // вставить запись
 	if (IsFull()) {
+		cerr << " TabFull " << endl;
 		return TabFull;
 	}
 	else if (FindRecord(k) == true) {
+		cerr << " TabRecDbl " << endl;
 		return TabRecDbl;
 	}
 	else {
@@ -55,6 +57,7 @@ int TTreeTable::InsRecord(TKey k, TValue pVal) { // вставить запись
 
 int TTreeTable::DelRecord(TKey k) { // удалить запись
 	if (FindRecord(k) == false) {
+		cerr << " TabNoRec " << endl;
 		return TabNoRec;
 	}
 	else {
@@ -179,7 +182,7 @@ void TTreeTable::Draw(void) // печать дерева (рисунок слева направо)
 }
 
 // запись ключей в массив в порядке возрастания с запоминаем номеров ярусов
-void TTreeTable::PutValues(TTreeNode* pNode, int Level)
+/*void TTreeTable::PutValues(TTreeNode* pNode, int Level)
 {
 	if ((pNode != NULL) && (pos < 20))
 	{
@@ -215,7 +218,7 @@ void TTreeTable::Show(void) // печать дерева (рисунок сверху вниз)
 		}
 		cout << endl;
 	}
-}
+}*/
 
 // служебные методы
 void TTreeTable::PrintTreeTable(ostream &os, TTreeNode* pNode)
