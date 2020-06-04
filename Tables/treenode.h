@@ -3,21 +3,31 @@
 #define _treenode_h
 #include "record.h"
 
-class   TTreeNode;
-typedef TTreeNode *PTTreeNode;
+#define BalOk 0
+#define BalLeft -1
+#define BalRight 1
 
-class TTreeNode : public TTabRecord
-{
+//class   TTreeNode;
+//typedef TTreeNode *PTTreeNode;
+
+class TTreeNode : public TTabRecord {
 protected:
-	PTTreeNode pLeft, pRight; // указатели на поддеревья
+	TTreeNode *pLeft, *pRight; // указатели на поддеревья
+	int Balance; //индекс балансировки вершины
 public:
-	TTreeNode(TKey k = 0, TValue pVal = NULL, PTTreeNode pL = NULL, PTTreeNode pR = NULL) : TTabRecord(k, pVal), pLeft(pL), pRight(pR) {
-	}
-	PTTreeNode GetLeft(void) const { return pLeft; }
-	PTTreeNode GetRight(void) const { return pRight; }
+
+	TTreeNode() { pLeft = pRight = NULL; Balance = BalOk; } //default constructor
+	TTreeNode(TKey k, TValue pVal, TTreeNode *pL = NULL, TTreeNode *pR = NULL, int bal = BalOk):
+	TTabRecord(k, pVal), pLeft(pL), pRight(pR), Balance(bal) {} //конструктор инициализации
+	TTreeNode* GetLeft(void) const { return pLeft; }
+	TTreeNode* GetRight(void) const { return pRight; }
 	//virtual TValue* GetCopy(); // изготовить копию
 
+	int GetBalance(void) const { return Balance; }
+	void SetBalance(int bal) { Balance = bal; }
+
 	friend class TTreeTable;
+	friend class TBalanceTree;
 };
 
 #endif 

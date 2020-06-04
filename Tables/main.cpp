@@ -83,10 +83,11 @@ void TableProcessor(TTabMode mode) {
 		}
 		if (com == 4)
 		{
+			//cout << *pTab;
 			if (mode != TREE_TABLE)
 				cout << *pTab; // Table printing
 			else
-				((TTreeTable*)pTab)->Show();
+				((TTreeTable*)pTab)->Draw();
 		}
 	}
 }

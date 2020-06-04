@@ -5,21 +5,20 @@
 #include "table.h"
 #include "treenode.h"
 
-class TTreeTable : public TTable
-{
+class TTreeTable : public TTable {
 protected:
-	PTTreeNode  pRoot;    // указатель на корень дерева
-	PTTreeNode *ppRef;    // адрес указателя на вершину-результата в FindRecord
-	PTTreeNode  pCurrent; // указатель на текущую вершину
+	TTreeNode  *pRoot;    // указатель на корень дерева
+	TTreeNode *ppRef;    // адрес указателя на вершину-результата в FindRecord
+	TTreeNode  *pCurrent; // указатель на текущую вершину
+	TTreeNode *pPrev;
 	int CurrPos;          // номер текущей вершины
-	stack<PTTreeNode> St; // стек для итератора
+	stack<TTreeNode*> St; // стек для итератора
 
-	void PrintTreeTable(ostream &os, PTTreeNode pNode); // Печать
-	void DrawTreeTable(PTTreeNode pNode, int Level);   // Печать с ярусами
-	void DeleteTreeTable(PTTreeNode pNode);              // Удаление
+	void PrintTreeTable(ostream &os, TTreeNode *pNode); // Печать
+	void DrawTreeTable(TTreeNode *pNode, int Level);   // Печать с ярусами
+	void DeleteTreeTable(TTreeNode *pNode);              // Удаление
 public:
-	TTreeTable() : TTable()
-	{
+	TTreeTable() : TTable() {
 		CurrPos = 0; pRoot = pCurrent = NULL; ppRef = NULL;
 	}
 	~TTreeTable() { DeleteTreeTable(pRoot); }
@@ -27,8 +26,8 @@ public:
 	virtual int IsFull() const;               // заполнена?
 	// основные методы
 	virtual bool FindRecord(TKey k); // найти запись
-	virtual int       InsRecord(TKey k, TValue pVal); // вставить
-	virtual int       DelRecord(TKey k); // удалить запись
+	virtual int InsRecord(TKey k, TValue pVal); // вставить
+	virtual int DelRecord(TKey k); // удалить запись
 	// навигация
 	virtual int Reset(void);       // установить на первую запись
 	virtual int IsTabEnded(void) const; // таблица завершена?
@@ -44,7 +43,7 @@ public:
 protected:
 	string tk[20];
 	int tl[20], pos;
-	void PutValues(PTTreeNode pNode, int Level); // служебный метод для Show
+	void PutValues(TTreeNode *pNode, int Level); // служебный метод для Show
 };
 
 #endif 
