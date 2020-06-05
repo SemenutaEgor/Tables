@@ -12,7 +12,7 @@ public:
 	TScanTable(int Size = TabMaxSize) : TArrayTable(Size) { };
 
 	virtual bool FindRecord(TKey k);
-	virtual void InsRecord(TKey k, TValue pVal);
+	virtual int InsRecord(TKey k, TValue pVal);
 	virtual int DelRecord(TKey k);
 };
 

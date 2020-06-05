@@ -12,14 +12,14 @@ bool TScanTable::FindRecord(TKey k) {
 	}
 	return false;
 }
-void TScanTable::InsRecord(TKey k, TValue pVal) {
+int TScanTable::InsRecord(TKey k, TValue pVal) {
 	if (IsFull()) {
 		cerr << " TabFull " << endl;
-		//return TabFull;
+		return TabFull;
 	}
 	else if (FindRecord(k) == true) {
 		cerr << " TabRecDbl " << endl;
-		//return TabRecDbl;
+		return TabRecDbl;
 	}
 	else {
 		pRecs[DataCount].Key = k;

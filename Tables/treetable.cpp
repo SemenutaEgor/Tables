@@ -28,14 +28,14 @@ bool TTreeTable::FindRecord(TKey k)
 	}
 } 
 
-void TTreeTable::InsRecord(TKey k, TValue pVal) { 
+int TTreeTable::InsRecord(TKey k, TValue pVal) { 
 	if (IsFull()) {
 		cerr << " TabFull " << endl;
-		//return TabFull;
+		return TabFull;
 	}
 	else if (FindRecord(k) == true) {
 		cerr << " TabRecDbl " << endl;
-		//return TabRecDbl;
+		return TabRecDbl;
 	}
 	else {
 		TTreeNode *tmp = new TTreeNode(k, pVal);
@@ -168,7 +168,7 @@ ostream& operator<<(ostream &os, TTreeTable &tab) {
 void TTreeTable::Draw(void) {
 	cout << "Table printing" << endl;
 	DrawTreeTable(pRoot, 0);
-	Efficiency++;
+	//Efficiency++;
 }
 
 // запись ключей в массив в порядке возрастания с запоминаем номеров ярусов

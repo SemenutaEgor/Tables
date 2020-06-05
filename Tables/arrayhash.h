@@ -26,11 +26,11 @@ public:
 	virtual ~TArrayHashTable();
 
 	//information methods
-	virtual int IsFull() const { return DataCount >= TabSize; }
+	virtual int IsFull() const {return DataCount >= TabSize; }
 
 	//basic methods
 	virtual bool FindRecord(TKey k);
-	virtual void InsRecord(TKey k, TValue pVal);
+	virtual int InsRecord(TKey k, TValue pVal);
 	virtual int DelRecord(TKey k);
 
 	//navigation

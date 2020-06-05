@@ -37,7 +37,7 @@ public:
 
 	//basic methods
 	virtual bool FindRecord(TKey k) = 0;
-	virtual void InsRecord(TKey k, TValue pVal) = 0;
+	virtual int InsRecord(TKey k, TValue pVal) = 0;
 	virtual int DelRecord(TKey k) = 0;
 
 	//navigation
@@ -55,8 +55,8 @@ public:
 		int i = 0;
 		for (tab.Reset(); !tab.IsTabEnded(); tab.GoNext()) {
 			os << " Key: " << tab.GetKey() << " Val: " << tab.GetValue() << endl;
-			i++;
-			tab.SetEfficiency(i);
+			//i++;
+			//tab.SetEfficiency(i);
 		}
 		return os;
 	}

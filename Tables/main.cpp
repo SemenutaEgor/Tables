@@ -23,7 +23,7 @@ void TableGenerator(TTabMode mode) {
 	cin >> DataCount;
 	cout << "Input the Maximum Key Value - ";
 	cin >> MaxKeyValue;
-	MemSize = DataCount+1;
+	MemSize = DataCount * 3;
 	switch (mode) {
 	case SCAN_TABLE:
 		pTab = new TScanTable(MemSize);
@@ -38,6 +38,7 @@ void TableGenerator(TTabMode mode) {
 		pTab = new TArrayHashTable(MemSize);
 		break;
 	}
+	//pTab->SetEfficiency(0);
 	pKeys = new int[MemSize];
 	pVals = new string[MemSize];
 	for (int i = 0; i < DataCount; i++) {
@@ -50,6 +51,8 @@ void TableGenerator(TTabMode mode) {
 		cin >> v;
 		pTab->InsRecord(k, v);*/
 	}
+	//cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
+	pTab->ClearEfficiency();
 }
 
 void TableProcessor(TTabMode mode) {
@@ -75,7 +78,7 @@ void TableProcessor(TTabMode mode) {
 			cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
 		}
 		if (com == 2) {
-			pTab->SetEfficiency(0);
+			pTab->ClearEfficiency();
 			cout << "Input the key of record - ";
 			cin >> key;
 			cout << "Input the record - ";
@@ -91,7 +94,7 @@ void TableProcessor(TTabMode mode) {
 			cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
 		}
 		if (com == 3) {
-			pTab->SetEfficiency(0);
+			pTab->ClearEfficiency();
 			cout << "Input the key of record - ";
 			cin >> key;
 			pTab->DelRecord(key);
@@ -104,7 +107,7 @@ void TableProcessor(TTabMode mode) {
 				cout << *pTab; // Table printing
 			else
 				((TTreeTable*)pTab)->Draw();
-			cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
+			//cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
 		}
 	}
 }
