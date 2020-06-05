@@ -28,14 +28,14 @@ bool TTreeTable::FindRecord(TKey k)
 	}
 } 
 
-int TTreeTable::InsRecord(TKey k, TValue pVal) { 
+void TTreeTable::InsRecord(TKey k, TValue pVal) { 
 	if (IsFull()) {
 		cerr << " TabFull " << endl;
-		return TabFull;
+		//return TabFull;
 	}
 	else if (FindRecord(k) == true) {
 		cerr << " TabRecDbl " << endl;
-		return TabRecDbl;
+		//return TabRecDbl;
 	}
 	else {
 		TTreeNode *tmp = new TTreeNode(k, pVal);

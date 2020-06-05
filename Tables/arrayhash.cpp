@@ -22,14 +22,13 @@ bool TArrayHashTable::FindRecord(TKey k) {
 	for (int i = 0; i < TabSize; i++) {
 		Efficiency++;
 		if (pRecs[CurrPos] == Empty) {
-			break;
 		}
 		else if (pRecs[CurrPos] == Mark) {
 			if (FreePos == -1) {
 				FreePos = CurrPos;
 			}
 		}
-		else if (pRecs[CurrPos].GetKey() == k) {
+		else if (pRecs[CurrPos].Key == k) {
 			result = true;
 			break;
 		}
@@ -38,28 +37,25 @@ bool TArrayHashTable::FindRecord(TKey k) {
 	return result;
 }
 
-int TArrayHashTable::InsRecord(TKey k, TValue pVal) {
-	if (IsFull()) { 
+void TArrayHashTable::InsRecord(TKey k, TValue pVal) {
+	if (IsFull()) {
 		cerr << " TabFull " << endl;
-		return TabFull;
+		//return TabFull;
+	}
+	else if (FindRecord(k) == true) {
+		cerr << " TabRecDbl " << endl;
+		//return TabRecDbl;
 	}
 	else {
-		bool res = FindRecord(k);
 		Efficiency++;
-		if (res) {
-			cerr << " TabRecDbl " << endl;
-			return TabRecDbl;
+		if (FreePos != -1) {
+			CurrPos = FreePos;
 		}
-		else {
-			if (FreePos != -1) {
-				CurrPos = FreePos;
-			}
-			pRecs[DataCount].Key = k;
-			pRecs[DataCount].pValue = pVal;
-			//pRecs[CurrPos] = TTabRecord(k, pVal);
-			DataCount++;
-			return TabOK;
-		}
+		pRecs[DataCount].Key = k;
+		pRecs[DataCount].pValue = pVal;
+		//pRecs[CurrPos] = TTabRecord(k, pVal);
+		DataCount++;
+		//return TabOK;
 	}
 }
 

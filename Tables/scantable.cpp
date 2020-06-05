@@ -12,22 +12,21 @@ bool TScanTable::FindRecord(TKey k) {
 	}
 	return false;
 }
-
-int TScanTable::InsRecord(TKey k, TValue pVal) {
+void TScanTable::InsRecord(TKey k, TValue pVal) {
 	if (IsFull()) {
 		cerr << " TabFull " << endl;
-		return TabFull;
+		//return TabFull;
 	}
 	else if (FindRecord(k) == true) {
 		cerr << " TabRecDbl " << endl;
-		return TabRecDbl;
+		//return TabRecDbl;
 	}
 	else {
 		pRecs[DataCount].Key = k;
 		pRecs[DataCount].pValue = pVal;
 		DataCount++;      
 		Efficiency++;
-		return TabOK;
+		//return TabOK;
 	}
 }
 

@@ -37,7 +37,7 @@ public:
 
 	//basic methods
 	virtual bool FindRecord(TKey k) = 0;
-	virtual int InsRecord(TKey k, TValue pVal) = 0;
+	virtual void InsRecord(TKey k, TValue pVal) = 0;
 	virtual int DelRecord(TKey k) = 0;
 
 	//navigation

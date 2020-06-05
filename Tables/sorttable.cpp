@@ -48,14 +48,14 @@ bool TSortTable::FindRecord(TKey k) {
 	return false;                                                      
 } 
 
-int TSortTable::InsRecord(TKey k, TValue pVal) {
+void TSortTable::InsRecord(TKey k, TValue pVal) {
 	if (IsFull()) {
 		cerr << " TabFull " << endl;
-		return TabFull;
+		//return TabFull;
 	}
 	else if (FindRecord(k) == true) {
 		cerr << " TabRecDbl " << endl;
-		return TabRecDbl;
+		//return TabRecDbl;
 	}
 	else {
 		int temp = FindRecord(k);
