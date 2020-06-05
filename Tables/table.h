@@ -30,7 +30,7 @@ public:
 	//information methods
 	int GetDataCount() const { return DataCount; }
 	int GetEfficiency() const { return   Efficiency; }
-	void NullEfficiency() { Efficiency = 0; }
+	void SetEfficiency(int e) { Efficiency = e; }
 	void ClearEfficiency() { Efficiency = 0; }
 	int IsEmpty() const { return DataCount == 0; }
 	virtual int IsFull() const = 0;
@@ -52,9 +52,11 @@ public:
 	//table printing
 	friend ostream& operator<<(ostream &os, TTable &tab) {
 		cout << "Table printing" << endl;
+		int i = 0;
 		for (tab.Reset(); !tab.IsTabEnded(); tab.GoNext()) {
 			os << " Key: " << tab.GetKey() << " Val: " << tab.GetValue() << endl;
-			Efficiency++;
+			i++;
+			tab.SetEfficiency(i);
 		}
 		return os;
 	}

@@ -68,14 +68,14 @@ void TableProcessor(TTabMode mode) {
 			cin >> rec;
 		}*/
 		if (com == 1) {
-			pTab->NullEfficiency();
+			pTab->SetEfficiency(0);
 			cout << "Input the key of record - ";
 			cin >> key;
 			cout << " Find " << pTab->FindRecord(key) << endl;
 			cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
 		}
 		if (com == 2) {
-			pTab->NullEfficiency();
+			pTab->SetEfficiency(0);
 			cout << "Input the key of record - ";
 			cin >> key;
 			cout << "Input the record - ";
@@ -91,14 +91,14 @@ void TableProcessor(TTabMode mode) {
 			cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
 		}
 		if (com == 3) {
-			pTab->NullEfficiency();
+			pTab->SetEfficiency(0);
 			cout << "Input the key of record - ";
 			cin >> key;
 			pTab->DelRecord(key);
 			cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
 		}
 		if (com == 4) {
-			pTab->NullEfficiency();
+			pTab->SetEfficiency(0);
 			//cout << *pTab;
 			if (mode != TREE_TABLE)
 				cout << *pTab; // Table printing
